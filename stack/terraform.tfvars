@@ -1,7 +1,7 @@
 aws_region     = "us-west-1"
 aws_profile    = "terraform"
 
-key_name       = "us-west-1"     #use your key
+key_name       = "my-key-west"     #use your key
 vpc_cidr       = "10.0.0.0/16"
 
 cidrs = {
@@ -44,8 +44,8 @@ asg_app_grace        = "400"
 asg_app_hct          = "ELB"
 asg_app_cap          = "1"
 
-alarms_sms  = "phone"
+alarms_sms  = "+16155178804"
 
-zone_id = "your zone id"
+zone_id = "Z065213014PLUF1E0AVDK"
 route53_dns = "firatlii.com"
   
