@@ -21,8 +21,7 @@ resource "aws_autoscaling_group" "group3_app_asg" {
   desired_capacity          = var.asg_app_cap
   force_delete              = true
   launch_configuration      = aws_launch_configuration.group3_app_lc.name
-  target_group_arns = [aws_lb_target_group.alb_target_group1.arn]
-
+  target_group_arns         = [aws_lb_target_group.alb_target_group1.arn]
   vpc_zone_identifier = [aws_subnet.group3_private3_subnet.id,
   aws_subnet.group3_private4_subnet.id]
 
@@ -48,6 +47,12 @@ resource "aws_security_group" "group3_app_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
     from_port   = -1
     to_port     = -1
     protocol    = "icmp"
@@ -61,19 +66,19 @@ resource "aws_security_group" "group3_app_sg" {
   }
 }
 resource "aws_lb" "group3_app_elb" {
-  name = "group3-app-elb"
+  name               = "group3-app-elb"
   load_balancer_type = "application"
   subnets = [aws_subnet.group3_private1_subnet.id,
   aws_subnet.group3_private2_subnet.id]
   security_groups = [aws_security_group.group3_app_sg.id]
-  internal = true
+  internal        = true
 
-  idle_timeout                = var.elb_idle_timeout
+  idle_timeout = var.elb_idle_timeout
 
   tags = {
     name = "group3_app_elb"
   }
- 
+
 }
 resource "aws_lb_target_group" "alb_target_group1" {
   name     = "alb-target-group1"
@@ -83,7 +88,7 @@ resource "aws_lb_target_group" "alb_target_group1" {
   tags = {
     name = "alb_target_group1"
   }
-   health_check {
+  health_check {
     healthy_threshold   = var.elb_healthy_threshold
     unhealthy_threshold = var.elb_unhealthy_threshold
     timeout             = var.elb_timeout
@@ -94,7 +99,7 @@ resource "aws_lb_target_group" "alb_target_group1" {
   #   cookie_duration = 86400   # seconds and = to 1 day (this is the defualt amount)
   #   enabled         = true
   # }
-  
+
 }
 
 resource "aws_lb_listener" "alb_listener1" {

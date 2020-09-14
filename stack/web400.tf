@@ -34,7 +34,7 @@ resource "aws_cloudwatch_metric_alarm" "group-3-error-400-alarm" {
   threshold           = "100"
   alarm_description   = "This metric monitors http errors 400"
   alarm_actions       = [aws_sns_topic.group-3-error-400-alarm.arn]
- 
+
   dimensions = {
     LoadBalancer = aws_lb.group3_web_elb.arn_suffix
   }

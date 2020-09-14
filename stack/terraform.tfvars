@@ -1,8 +1,8 @@
-aws_region     = "us-west-1"
-aws_profile    = "terraform"
+aws_region  = "us-west-1"
+aws_profile = "terraform"
 
-key_name       = "my-key-west"     #use your key
-vpc_cidr       = "10.0.0.0/16"
+key_name = "my-key" #use your key
+vpc_cidr = "10.0.0.0/16"
 
 cidrs = {
   public1  = "10.0.1.0/24"
@@ -44,8 +44,8 @@ asg_app_grace        = "400"
 asg_app_hct          = "ELB"
 asg_app_cap          = "1"
 
-alarms_sms  = "+16155178804"
+alarms_sms = "+1111...."
 
-zone_id = "Z065213014PLUF1E0AVDK"
-route53_dns = "firatlii.com"
-  
+zone_id     = "Z..."
+route53_dns = "....com"
+

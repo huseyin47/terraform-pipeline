@@ -13,8 +13,8 @@ resource "aws_iam_policy" "s3-policy" {
       ],
       "Effect": "Allow",
       "Resource": [
-           "${module.group3-s3-utility-bucket-test.bucket_arn}",
-          "${module.group3-s3-utility-bucket-test.bucket_arn}/*"
+           "${module.greg-test-baby.bucket_arn}",
+          "${module.greg-test-baby.bucket_arn}/*"
       ]
     }
   ]
@@ -23,7 +23,7 @@ EOF
 }
 resource "aws_iam_role" "ec2_iam_role" {
   name               = "ec2_iam_role"
-  path = "/"
+  path               = "/"
   assume_role_policy = <<EOF
 {
   "Version" : "2012-10-17",

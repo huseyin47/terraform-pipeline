@@ -1,13 +1,13 @@
 # WEB_TIER
 # Using standard AWS AMI for tnis exercise
 resource "aws_launch_configuration" "group3_web_lc" {
-  name_prefix   = "group3_web_lc"
-  image_id      = data.aws_ami.linux-ami-id.id
-  instance_type = var.web_lc_instance_type
+  name_prefix          = "group3_web_lc"
+  image_id             = data.aws_ami.linux-ami-id.id
+  instance_type        = var.web_lc_instance_type
   iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.id
-  security_groups = [aws_security_group.group3_web_sg.id]
-  user_data       = file("files/userdatawp.sh")
-  key_name        = var.key_name
+  security_groups      = [aws_security_group.group3_web_sg.id]
+  user_data            = file("userdata.sh")
+  key_name             = var.key_name
 
   lifecycle {
     create_before_destroy = true
@@ -110,7 +110,7 @@ resource "aws_lb" "group3_web_elb" {
   subnets = [aws_subnet.group3_public1_subnet.id,
   aws_subnet.group3_public2_subnet.id]
   security_groups = [aws_security_group.group3_web_sg.id]
-  idle_timeout    = var.elb_timeout
+  idle_timeout    = var.elb_idle_timeout
 
   tags = {
     name = "group3_web_elb"

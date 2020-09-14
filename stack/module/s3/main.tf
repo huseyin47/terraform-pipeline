@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "group3-s3-utility-bucket-test" {
+resource "aws_s3_bucket" "my-unique-bckt-1" {
   bucket = var.bucket_name
   server_side_encryption_configuration {
     rule {
@@ -8,7 +8,7 @@ resource "aws_s3_bucket" "group3-s3-utility-bucket-test" {
       }
     }
   }
-  acl    = "private"
+  acl  = "private"
   tags = var.s3_tags
 
   lifecycle_rule {
@@ -29,7 +29,7 @@ resource "aws_s3_bucket" "group3-s3-utility-bucket-test" {
     }
 
     expiration {
-      days = 1825  # 5 years
+      days = 1825 # 5 years
     }
   }
 }
@@ -37,6 +37,10 @@ resource "aws_kms_key" "mykey" {
   description             = "This key is used to encrypt bucket objects"
   deletion_window_in_days = 10
 }
+
+
+
+
 
 # resource "aws_s3_bucket" "group3-mybucket12345678912345678" {
 #   bucket = "group3-mybucket12345678912345678"

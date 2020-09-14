@@ -51,7 +51,7 @@ variable "asg_app_cap" {}
 
 variable "zone_id" {}
 variable "route53_dns" {}
- 
+
 variable "alias" {
   type        = map
   default     = {}

@@ -4,7 +4,7 @@ resource "aws_autoscaling_policy" "group3-web-asp" {
   adjustment_type        = "ChangeInCapacity"
   cooldown               = 300
   autoscaling_group_name = aws_autoscaling_group.group3_web_asg.name
-  policy_type            = "SimpleScaling"  #by default
+  policy_type            = "SimpleScaling" #by default
 }
 
 #scale up alarm
@@ -84,26 +84,26 @@ resource "aws_sns_topic" "group3-web-scale-up-sms" {
 }
 
 resource "aws_sns_topic_subscription" "group3-web-send-sms-autoscaling" {
-    topic_arn = aws_sns_topic.group3-web-scale-up-sms.arn
-    protocol  = "sms"
-    endpoint  = var.alarms_sms
-  }
+  topic_arn = aws_sns_topic.group3-web-scale-up-sms.arn
+  protocol  = "sms"
+  endpoint  = var.alarms_sms
+}
 
-  # cloudwatch alarm for scaling up need, triggers sns topic that triggers sns subscription to send an SMS
+# cloudwatch alarm for scaling up need, triggers sns topic that triggers sns subscription to send an SMS
 
-  resource "aws_cloudwatch_metric_alarm" "group3-web-scale-up-sms" {
-    alarm_name          = "web-tier-cpu-alarm-to-send-sms-to ....."
-    alarm_description   = "web-tier-scaleup-cpu-alarm"
-    comparison_operator = "GreaterThanOrEqualToThreshold"
-    evaluation_periods  = "2"
-    metric_name         = "CPUUtilization"
-    namespace           = "AWS/EC2"
-    period              = "120"
-    statistic           = "Average"
-    threshold           = "75"
-    dimensions = {
-      "AutoScalingGroupName" = aws_autoscaling_group.group3_web_asg.name
-    }
-    actions_enabled = true
-    alarm_actions   = [aws_sns_topic.group3-web-scale-up-sms.arn]
+resource "aws_cloudwatch_metric_alarm" "group3-web-scale-up-sms" {
+  alarm_name          = "web-tier-cpu-alarm-to-send-sms-to ....."
+  alarm_description   = "web-tier-scaleup-cpu-alarm"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "2"
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = "120"
+  statistic           = "Average"
+  threshold           = "75"
+  dimensions = {
+    "AutoScalingGroupName" = aws_autoscaling_group.group3_web_asg.name
   }
+  actions_enabled = true
+  alarm_actions   = [aws_sns_topic.group3-web-scale-up-sms.arn]
+}
